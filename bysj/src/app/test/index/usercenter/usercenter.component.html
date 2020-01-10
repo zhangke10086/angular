@@ -1,0 +1,141 @@
+<div class="content-background">
+  <div class="content-header">
+    <div class="content-div">
+      <p class="title" style=" margin:8px 0 24px 8px;width: 300px">个人信息</p>
+      <div style="float: right;display: inline-block">
+        <button *ngIf="edit" nz-button   (click)="cancle()" >取消</button>
+        <button *ngIf="!edit" nz-button  nzType="primary" (click)="edit=true" >编辑</button>
+        <button *ngIf="edit" nz-button  nzType="primary" (click)="save()">保存</button>
+      </div>
+    </div>
+  </div>
+<div class="content-table" style="height:calc(100% - 66px)">
+  <form nz-form>
+    <div nz-row>
+      <div nz-col [nzSpan]="10">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3">姓名</nz-form-label>
+          <nz-form-control *ngIf="edit" [nzSpan]="11">
+            <input nz-input name="name"  [(ngModel)]="user.name">
+          </nz-form-control>
+          <nz-form-control *ngIf="!edit" [nzSpan]="11">
+            {{user.name}}
+          </nz-form-control>
+        </nz-form-item >
+      </div>
+      <div nz-col [nzSpan]="11">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3">邮箱</nz-form-label>
+          <nz-form-control *ngIf="edit" [nzSpan]="11">
+            <input nz-input name="email"  [(ngModel)]="user.email" (input)="onInput($event)"
+                   [nzAutocomplete]="auto">
+            <nz-autocomplete #auto>
+              <nz-auto-option *ngFor="let option of options" [nzValue]="option">{{ option }}</nz-auto-option>
+            </nz-autocomplete>
+          </nz-form-control>
+          <nz-form-control *ngIf="!edit" [nzSpan]="11">
+            {{user.email}}
+          </nz-form-control>
+        </nz-form-item >
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col [nzSpan]="10">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3">省份</nz-form-label>
+          <nz-form-control *ngIf="edit" [nzSpan]="11">
+<!--            <nz-cascader [nzOptions]="nzOptions" [(ngModel)]="values" name="name"  [nzLabelProperty]="'name'"-->
+<!--                         [nzValueProperty]="'name'" (ngModelChange)="onChanges($event)"></nz-cascader>-->
+            <nz-select [(ngModel)]="selectedProvince" (ngModelChange)="provinceChange($event)" name="province">
+              <nz-option *ngFor="let p of nzOptions" [nzValue]="p.name" [nzLabel]="p.name"></nz-option>
+            </nz-select>
+          </nz-form-control>
+          <nz-form-control *ngIf="!edit" [nzSpan]="11">
+            {{user.province}}
+          </nz-form-control>
+        </nz-form-item >
+      </div>
+      <div nz-col [nzSpan]="11">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3">城市</nz-form-label>
+          <nz-form-control *ngIf="edit" [nzSpan]="11">
+            <nz-select [(ngModel)]="selectedCity"  name="city" (ngModelChange)="cityChange($event)">
+              <nz-option *ngFor="let c of cityData" [nzValue]="c.name" [nzLabel]="c.name"></nz-option>
+            </nz-select>
+          </nz-form-control>
+          <nz-form-control *ngIf="!edit" [nzSpan]="11">
+            {{user.city}}
+          </nz-form-control>
+        </nz-form-item >
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col [nzSpan]="10">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3">区</nz-form-label>
+          <nz-form-control *ngIf="edit" [nzSpan]="11">
+            <nz-select [(ngModel)]="selectedArea"  name="area">
+              <nz-option *ngFor="let c of areaData" [nzValue]="c.name" [nzLabel]="c.name"></nz-option>
+            </nz-select>
+          </nz-form-control>
+          <nz-form-control *ngIf="!edit" [nzSpan]="11">
+            {{user.area}}
+          </nz-form-control>
+        </nz-form-item >
+      </div>
+      <div nz-col [nzSpan]="11">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3">生日</nz-form-label>
+          <nz-form-control *ngIf="edit" [nzSpan]="11">
+            <input nz-input name="birthday"  [(ngModel)]="user.birthday">
+          </nz-form-control>
+          <nz-form-control *ngIf="!edit" [nzSpan]="11">
+            {{user.birthday}}
+          </nz-form-control>
+        </nz-form-item >
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col [nzSpan]="10">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3">备注</nz-form-label>
+        <nz-form-control *ngIf="edit" [nzSpan]="11">
+          <input nz-input name="message"  [(ngModel)]="user.note">
+        </nz-form-control>
+        <nz-form-control *ngIf="!edit" [nzSpan]="11">
+          {{user.note}}
+        </nz-form-control>
+      </nz-form-item >
+      </div>
+    </div>
+  </form>
+  <nz-divider></nz-divider>
+  <form nz-form>
+    <div nz-row>
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="3">用户角色</nz-form-label>
+          <nz-form-control  [nzSpan]="17">
+            <div style="display: inline-block;">
+              <span *ngFor="let obj of role">{{obj.note}} </span>
+            </div>
+          </nz-form-control>
+        </nz-form-item >
+      </div>
+<!--      <div nz-col [nzSpan]="11">-->
+<!--        <nz-form-item>-->
+<!--          <nz-form-label [nzSpan]="3">邮箱</nz-form-label>-->
+<!--          <nz-form-control *ngIf="edit" [nzSpan]="11">-->
+<!--            <input nz-input name="email"  [(ngModel)]="user.email">-->
+<!--          </nz-form-control>-->
+<!--          <nz-form-control *ngIf="!edit" [nzSpan]="11">-->
+<!--            {{user.email}}-->
+<!--          </nz-form-control>-->
+<!--        </nz-form-item >-->
+<!--      </div>-->
+    </div>
+  </form>
+
+</div>
+
+</div>

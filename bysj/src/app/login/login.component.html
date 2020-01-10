@@ -1,0 +1,122 @@
+<div id="back">
+  <div id="logindiv">
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="login()">
+      <nz-form-item style="text-align: center;">
+        <!--        <img src="../../assets/src/img/logo-big.png" alt="tetsr">-->
+        <h2 nz-title>123</h2>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzPrefix]="prefixUser">
+            <input type="text" nz-input formControlName="username" placeholder="用户名"/>
+          </nz-input-group>
+          <nz-form-explain *ngIf="validateForm.get('userName')?.dirty && validateForm.get('userName')?.errors"
+          >请输入用户名
+          </nz-form-explain
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzPrefix]="prefixLock">
+            <input type="password" nz-input formControlName="password" placeholder="密码"/>
+          </nz-input-group>
+          <nz-form-explain *ngIf="validateForm.get('password')?.dirty && validateForm.get('password')?.errors"
+          >请输入密码
+          </nz-form-explain
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <label nz-checkbox formControlName="remember">
+            <span>记住我</span>
+          </label>
+          <a class="login-form-forgot" >忘记密码</a>
+          <button nz-button class="login-form-button" [nzType]="'primary'" >登录</button>
+          <a (click)="open()">立即注册</a>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+  <ng-template #prefixUser><i nz-icon nzType="user" [nzTheme]="'outline'"></i></ng-template>
+  <ng-template #prefixLock><i nz-icon nzType="lock" [nzTheme]="'outline'"></i></ng-template>
+  <ng-template #prefixmail><i nz-icon nzType="mail" nzTheme="outline"></i></ng-template>
+  <ng-template #prefixcard><i nz-icon nzType="idcard" nzTheme="outline"></i></ng-template>
+</div>
+<nz-modal  [nzOkText]="null" [nzKeyboard]="false"
+           [nzCancelText]="null" [nzMaskClosable]="false"
+           [(nzVisible)]="logon" [nzTitle]="'用户注册'" (nzOnCancel)="logon=false" >
+  <form nz-form [formGroup]="LForm" style="max-width: 400px;" (ngSubmit)="ok()">
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label  [nzSpan]="7" nzRequired >邮箱</nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <nz-input-group [nzPrefix]="prefixmail">
+            <input type="text" nz-input formControlName="email" placeholder="邮箱"  (input)="onInput($event)"
+                   [nzAutocomplete]="auto" />
+          </nz-input-group>
+          <nz-autocomplete #auto>
+            <nz-auto-option *ngFor="let option of options" [nzValue]="option">{{ option }}</nz-auto-option>
+          </nz-autocomplete>
+          <nz-form-explain *ngIf="LForm.get('email')?.dirty && LForm.get('email')?.errors"
+          >请输入邮箱
+          </nz-form-explain
+          >
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label  [nzSpan]="7" nzRequired >用户名</nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <nz-input-group [nzPrefix]="prefixUser">
+              <input type="text" nz-input formControlName="username" placeholder="用户名"/>
+          </nz-input-group>
+          <nz-form-explain *ngIf="LForm.get('username')?.dirty && LForm.get('username')?.errors"
+          >请输入用户名
+          </nz-form-explain
+          >
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label  [nzSpan]="7" nzRequired >密码</nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <nz-input-group [nzPrefix]="prefixLock">
+              <input type="password" nz-input formControlName="password" placeholder="密码"/>
+          </nz-input-group>
+          <nz-form-explain *ngIf="LForm.get('password')?.dirty && LForm.get('password')?.errors"
+          >请输入密码
+          </nz-form-explain
+          >
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <nz-form-item>
+        <nz-form-label  [nzSpan]="7" nzRequired >姓名</nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <nz-input-group [nzPrefix]="prefixcard">
+              <input type="text" nz-input formControlName="name" placeholder="姓名"/>
+          </nz-input-group>
+          <nz-form-explain *ngIf="LForm.get('name')?.dirty && LForm.get('name')?.errors"
+          >请输入姓名
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div style="padding-left: 98px;margin-bottom: 8px" >
+      <nz-form-item>
+        <nz-form-control>
+            <input type="checkbox"   (click)="check()" formControlName="check">
+          <label>我已满18岁，已阅读并接受系统协议</label>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-row>
+      <button style="margin-left: 35px" nz-button class="login-form-button" [nzType]="'primary'" >注册提交</button>
+    </div>
+  </form>
+</nz-modal>

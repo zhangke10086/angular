@@ -1,0 +1,126 @@
+
+<nz-layout #layout style="height: 100%;overflow-y: hidden">
+  <nz-header #header style="padding-right: 0" [style.background]="headerBg">
+    <div class="header">
+      <div id="logo"></div>
+      <div>
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+           <i class="trigger"
+              nz-icon
+              [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'">
+           </i>
+        </span>
+        <span class="header-trigger" (click)="navigateTo(home)">
+          <i class="trigger" nz-icon nzType="home" nzTheme="outline"></i>
+        </span>
+        <span class="header-trigger" (click)="fullScreen()" *ngIf="!showALL"  nz-tooltip nzPlacement="bottom" nzTitle="全屏切换">
+        <i class="trigger" nz-icon nzType="fullscreen" nzTheme="outline"></i>
+      </span>
+        <span  class="header-trigger"  (click)="exitFullScreen()" *ngIf="showALL"  nz-tooltip nzPlacement="bottom" nzTitle="全屏切换">
+        <i class="trigger" nz-icon nzType="fullscreen-exit" nzTheme="outline"></i>
+      </span>
+        <span  class="header-trigger">
+        <nz-switch  [(ngModel)]="changeTheme" (ngModelChange)="change($event)"></nz-switch>
+      </span>
+
+        <div id="user">
+
+          <nz-avatar [nzDropdownMenu]="user" nz-dropdown nzPlacement="bottomRight"
+                     nzShape="circle" nzSrc="/assets/src/img/touxiang_.jpg" nzTrigger="click"
+                     style="margin-right: 4px;cursor:pointer;display: inline-block;font-size: 16px;height: 36px;width: 36px">
+          </nz-avatar>
+
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </nz-header>
+  <nz-layout style="height: calc(100% - 52px)">
+    <nz-sider [nzWidth]="200" [nzTheme]="theme"  nzCollapsible
+                  nzBreakpoint="md" class="out-div"
+                  [(nzCollapsed)]="isCollapsed"
+                  [nzTrigger]="null">
+      <ul nz-menu   [nzTheme]="theme" nzMode="inline" [nzInlineCollapsed]="isCollapsed" *ngFor="let a of menu">
+        <li *ngIf="a.hasOwnProperty('children')" nz-submenu  [nzTitle]="a.title" nzIcon="dashboard">
+          <ul>
+            <div *ngFor="let b of a.children">
+              <li  *ngIf="b.hasOwnProperty('children')" nz-submenu  [nzTitle]="b.title">
+                <ul *ngIf="b.hasOwnProperty('children')">
+                  <li *ngFor="let c of b.children" nz-menu-item (click)="navigateTo(c)"
+                      [nzSelected]="menuSelected(c)">
+                    {{c.title}}
+                  </li>
+                </ul>
+              </li>
+              <li  *ngIf="!b.hasOwnProperty('children')" nz-menu-item  (click)="navigateTo(b)"
+                   [nzSelected]="menuSelected(b)">
+                {{b.title}}
+              </li>
+            </div>
+          </ul>
+        </li>
+        <li (click)="navigateTo(a)"
+            *ngIf="a&&(!a.hasOwnProperty('children'))" nz-menu-item
+            [nzSelected]="menuSelected(a)">
+          {{a.title}}
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout class="inner-layout" >
+      <nz-tabset *ngIf="tabs.length>0" [(nzSelectedIndex)]="tabIndex" [nzAnimated]="false" [nzTabBarGutter]="0"
+                 [nzTabBarStyle]="{color:'#fafafa',background:tabBg}"
+                 [nzType]="'card'" class="header-menu" >
+        <nz-tab   (nzClick)="navigateTo(tab)" *ngFor="let tab of tabs" [nzTitle]="titleTemplate" [style.background]="tabcardBg" >
+          <ng-template #template>
+            <ul (nzClick)="dropDownClose()" nz-menu nzInDropDown>
+              <li (click)="refresh(tab)" nz-menu-item>
+                <i nz-icon nzType="reload" style="font-size: 12px;margin-right: 0;" nzTheme="outline"></i>
+                刷新标签
+              </li>
+              <li (click)="closeUrl(tab)" class="top-border" nz-menu-item>
+                <i nz-icon nzType="close-circle" style="font-size: 12px;margin-right: 0;" nzTheme="outline"></i>
+                关闭标签
+              </li>
+              <li (click)="closeAllTab()" nz-menu-item>
+                <i nz-icon nzType="close" style="font-size: 12px;margin-right: 0;" nzTheme="outline"></i>
+                全部关闭
+              </li>
+            </ul>
+          </ng-template>
+          <ng-template #titleTemplate >
+            <div
+              (auxclick)="onAuxClick($event,tab)" (contextmenu)="contextMenu($event, template)"
+              [ngStyle]="{'user-select':'none'}">
+              {{ tab["title"] }}
+              <i (click)="closeUrl(tab)" nz-icon style="font-size: 12px;margin-left: 8px" nzType="close" ></i>
+            </div>
+          </ng-template>
+        </nz-tab>
+      </nz-tabset>
+      <nz-content style="width: 100%;height: calc(100% - 31px);overflow-y: auto;margin-left: 0"><router-outlet></router-outlet></nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>
+<nz-dropdown-menu #user="nzDropdownMenu">
+  <ul nz-menu>
+    <li style="text-align: center">
+      <h3 >
+      {{username}}
+      </h3>
+    </li>
+    <li nz-menu-item (click)="navigateTo(usercenter)">
+      <i nz-icon nzType="user" style="font-size: 16px" nzTheme="outline"></i>
+      <span style="font-size: 14px">个人中心</span>
+    </li>
+
+    <li nz-menu-item (click)="logout()">
+      <i style="margin-right: 8px;font-size: 16px" nz-icon nzType="logout" nzTheme="outline"></i>
+      <span style="font-size: 14px">注销</span>
+    </li>
+  </ul>
+
+</nz-dropdown-menu>

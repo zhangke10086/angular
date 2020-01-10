@@ -1,0 +1,86 @@
+[
+  {
+    "title": "题目一",
+    "icon": "book",
+    "key": "mopm",
+    "children": [
+      {
+        "title": "爸爸1",
+        "key": "mopm/routing",
+        "children": [
+          {
+            "title": "爸爸1的儿子1",
+            "url": "/index/mopm/routingmaintain",
+            "key": "/index/mopm/routingmaintain",
+            "isLeaf": true
+          },
+          {
+            "title": "爸爸1的儿子2",
+            "url": "/index/mopm/routingusage",
+            "key": "/index/mopm/routingusage",
+            "isLeaf": true
+          }
+        ]
+      },
+      {
+        "title": "爸爸2",
+        "key": "mopm/stdoperation",
+        "children": [
+          {
+            "title": "爸爸2的儿子1",
+            "url": "/index/mopm/stdoperationmanage",
+            "key": "/index/mopm/stdoperationmanage",
+            "isLeaf": true
+          },
+          {
+            "title": "爸爸2的儿子2",
+            "url": "/index/mopm/stdoperationsort",
+            "key": "/index/mopm/stdoperationsort",
+            "isLeaf": true
+          }
+        ]
+      },
+      {
+        "title": "爸爸3",
+        "key": "/mopm/bom",
+        "children": [
+          {
+            "title": "爸爸3的女儿",
+            "url": "/index/mopm/bommaintain",
+            "key": "/index/mopm/bommaintain",
+            "isLeaf": true
+          },
+          {
+            "title": "小猫",
+            "url": "/index/mopm/bomdistribution",
+            "key": "/index/mopm/bomdistribution",
+            "isLeaf": true
+          },
+          {
+            "title": "小狗",
+            "url": "/index/mopm/bomsort",
+            "key": "/index/mopm/bomsort",
+            "isLeaf": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Welcome",
+    "children": [
+      {
+        "title": "界面1",
+        "url": "/index/test2/car"
+      },
+      {
+        "title": "界面2",
+        "url": "202"
+      },
+      {
+        "title": "界面3",
+        "url": "203"
+      }
+    ]
+  }
+]
