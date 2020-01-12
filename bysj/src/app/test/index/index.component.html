@@ -19,15 +19,13 @@
         <span  class="header-trigger"  (click)="exitFullScreen()" *ngIf="showALL"  nz-tooltip nzPlacement="bottom" nzTitle="全屏切换">
         <i class="trigger" nz-icon nzType="fullscreen-exit" nzTheme="outline"></i>
       </span>
-        <span  class="header-trigger">
-        <nz-switch  [(ngModel)]="changeTheme" (ngModelChange)="change($event)"></nz-switch>
-      </span>
-
         <div id="user">
-
+        <span class="header-trigger" nz-dropdown [nzDropdownMenu]="Thememenu" style="font-size: 20px" nzTrigger="click">
+          <i nz-icon nzType="setting" nzTheme="outline"></i>
+        </span>
           <nz-avatar [nzDropdownMenu]="user" nz-dropdown nzPlacement="bottomRight"
                      nzShape="circle" nzSrc="/assets/src/img/touxiang_.jpg" nzTrigger="click"
-                     style="margin-right: 4px;cursor:pointer;display: inline-block;font-size: 16px;height: 36px;width: 36px">
+                     style="margin-right: 4px;margin-bottom:8px;cursor:pointer;display: inline-block;font-size: 16px;height: 36px;width: 36px">
           </nz-avatar>
 
 
@@ -72,9 +70,9 @@
     </nz-sider>
     <nz-layout class="inner-layout" >
       <nz-tabset *ngIf="tabs.length>0" [(nzSelectedIndex)]="tabIndex" [nzAnimated]="false" [nzTabBarGutter]="0"
-                 [nzTabBarStyle]="{color:'#fafafa',background:tabBg}"
+                 [nzTabBarStyle]="TabBarStyle"
                  [nzType]="'card'" class="header-menu" >
-        <nz-tab   (nzClick)="navigateTo(tab)" *ngFor="let tab of tabs" [nzTitle]="titleTemplate" [style.background]="tabcardBg" >
+        <nz-tab   (nzClick)="navigateTo(tab)" *ngFor="let tab of tabs" [nzTitle]="titleTemplate"  >
           <ng-template #template>
             <ul (nzClick)="dropDownClose()" nz-menu nzInDropDown>
               <li (click)="refresh(tab)" nz-menu-item>
@@ -123,4 +121,21 @@
     </li>
   </ul>
 
+</nz-dropdown-menu>
+<nz-dropdown-menu #Thememenu="nzDropdownMenu">
+  <ul nz-menu style="width: 120px">
+    <li style="text-align: center">
+      <h3 >
+        主题切换
+      </h3>
+    </li>
+    <li nz-menu-item style="text-align: center" (click)="change('dark')">黑</li>
+    <li nz-menu-item style="text-align: center" (click)="change('blue')">蓝</li>
+    <li nz-menu-item style="text-align: center" (click)="change('green')">绿</li>
+    <li nz-menu-item style="text-align: center" (click)="change('purple')">紫</li>
+    <li nz-menu-item style="text-align: center" (click)="change('red')">红</li>
+    <li nz-menu-item style="text-align: center" (click)="change('ching')">青</li>
+    <li nz-menu-item style="text-align: center" (click)="change('orange')">橙</li>
+    <li nz-menu-item style="text-align: center" (click)="change('pink')">粉</li>
+  </ul>
 </nz-dropdown-menu>

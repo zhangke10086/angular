@@ -4,7 +4,7 @@
       <p class="title" style=" margin:8px 0 24px 8px;width: 300px">个人信息</p>
       <div style="float: right;display: inline-block">
         <button *ngIf="edit" nz-button   (click)="cancle()" >取消</button>
-        <button *ngIf="!edit" nz-button  nzType="primary" (click)="edit=true" >编辑</button>
+        <button *ngIf="!edit" nz-button  nzType="primary" (click)="Edit()" >编辑</button>
         <button *ngIf="edit" nz-button  nzType="primary" (click)="save()">保存</button>
       </div>
     </div>

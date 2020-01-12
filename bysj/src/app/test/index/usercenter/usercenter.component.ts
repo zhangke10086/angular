@@ -34,11 +34,6 @@ export class UsercenterComponent implements OnInit {
   ngOnInit() {
     this.getUserInfo();
     this.nzOptions = j;
-    this.cityData = this.nzOptions.find(t => t.name === '山东省').children;
-    this.areaData = this.cityData.find(t => t.name === '济南市').children;
-    // this.userService.getProvince().subscribe(res => {
-    //   console.log(res);
-    // });
   }
   save() {
     this.user.province = this.selectedProvince;
@@ -47,6 +42,20 @@ export class UsercenterComponent implements OnInit {
     this.userService.updateUserInfo(this.user).then((res: Res) => {
       this.edit = false;
     });
+  }
+  Edit() {
+    if (this.user.province) {
+      this.selectedProvince = this.user.province;
+      this.cityData = this.nzOptions.find(t => t.name === this.user.province).children;
+    }
+    if (this.user.city) {
+      this.selectedCity = this.user.city;
+      this.areaData = this.cityData.find(t => t.name === this.user.city).children;
+    }
+    if (this.user.area) {
+      this.selectedArea = this.user.area;
+    }
+    this.edit = true;
   }
   onInput(e: Event): void {
     const value = (e.target as HTMLInputElement).value;
@@ -66,11 +75,9 @@ export class UsercenterComponent implements OnInit {
     });
   }
   provinceChange(value: string): void {
-    console.log(value);
     this.cityData = this.nzOptions.find(t => t.name === value).children;
   }
   cityChange(value: string): void {
-    this.areaData = this.cityData.find( t =>t.name === value).children;
-    console.log(this.areaData);
+    this.areaData = this.cityData.find( t => t.name === value).children;
   }
 }

@@ -7,7 +7,9 @@ import {LogService} from '../../core/service/log.service';
 import { InspurRouteReuse } from 'src/app/core/routereuse/routeReuse';
 import { PlatformLocation } from '@angular/common';
 import {filter, map, mergeMap} from 'rxjs/operators';
-@Component({
+
+
+  @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.less']
@@ -15,6 +17,7 @@ import {filter, map, mergeMap} from 'rxjs/operators';
 export class IndexComponent implements OnInit {
   @ViewChild('header', {static: false}) header: ElementRef;
   @ViewChild('layout', {static: false}) layout: ElementRef;
+
   menu: any = j;
   isCollapsed = false;
   showALL: boolean;
@@ -25,6 +28,11 @@ export class IndexComponent implements OnInit {
   tabBg = '#4e4e4e';
   tabcardBg = '#4e4e4e';
   changeTheme = false;
+  Theme;
+  TabBarStyle = {
+    color: '#4e4e4e',
+    blackground: '#4e4e4e'
+  }
   home ={
     url:'/index/welcome',
     title:'首页'
@@ -77,6 +85,10 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     this.navigateTo(this.home);
   }
+    render() {
+
+    }
+
   navigateTo(data: any) {
     if(data === this.home && this.tabs.findIndex(p => data.url.includes(p.url))){
       this.router.navigate([data.url]);
@@ -180,9 +192,9 @@ export class IndexComponent implements OnInit {
   }
   logout(){
     delete localStorage['token'];
+    delete localStorage['userinfo'];
+    delete localStorage['username'];
     this.router.navigate(['/login']);
-    //   //TODO:如需要,向后台发起注销请求,清除后端保存的登录信息等
-    //   window.open('/', '_self');
   }
   // 全屏切换
   fullScreen() {
@@ -193,30 +205,47 @@ export class IndexComponent implements OnInit {
       this.showALL = true;
     }
   }
-
   exitFullScreen() {
     if (document.exitFullscreen) {
       document.exitFullscreen();
       this.showALL = false;
     }
   }
-  Height() {
-    try {
-      return this.layout.nativeElement.offsetHeight  - this.header.nativeElement.offsetHeight + 'px';
-    } catch (e) {
-    }
-  }
   change(value) {
-    if (value === true){
-      this.theme = 'light';
-      this.headerBg = '#3737f0';
-      // this.tabBg = '#474cff';
-      // this.tabcardBg = '#474cff';
-    } else {
+    if (value === 'dark'){
       this.theme = 'dark';
       this.headerBg = '#141a1e';
-      // this.tabBg = '#474cff';
-      // this.tabcardBg = '#474cff';
+      this.TabBarStyle = {
+        color: '#4e4e4e',
+        blackground: '#4e4e4e'
+      }
+    } else {
+      this.theme = 'light';
+      this.TabBarStyle = {
+        color: '#141A1E',
+        blackground: 'light'
+      }
+      if (value === 'blue') {
+        this.headerBg = '#3737f0';
+      }
+      if (value === 'green') {
+        this.headerBg = '#098e05';
+      }
+      if (value === 'purple'){
+      this.headerBg = '#e223e2';
+      }
+      if (value === 'red'){
+        this.headerBg = '#ff0500';
+      }
+      if (value === 'ching'){
+        this.headerBg = '#00c1ff';
+      }
+      if (value === 'orange'){
+        this.headerBg = '#ff7601';
+      }
+      if (value === 'pink'){
+        this.headerBg = '#ea68a2';
+      }
     }
   }
 }
