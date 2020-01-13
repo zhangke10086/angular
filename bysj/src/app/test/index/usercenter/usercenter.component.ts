@@ -17,9 +17,9 @@ export class UsercenterComponent implements OnInit {
               private message: NzMessageService,
               private modal: NzModalService) { }
   edit = false;
-  selectedProvince = '山东省';
-  selectedCity = '济南市';
-  selectedArea = '历城区';
+  selectedProvince = '';
+  selectedCity = '';
+  selectedArea = '';
   confirmModal: NzModalRef;
   user = new User();
   role = new Array<Role>();
@@ -34,16 +34,6 @@ export class UsercenterComponent implements OnInit {
   ngOnInit() {
     this.getUserInfo();
     this.nzOptions = j;
-  }
-  save() {
-    this.user.province = this.selectedProvince;
-    this.user.city = this.selectedCity;
-    this.user.area = this.selectedArea;
-    this.userService.updateUserInfo(this.user).then((res: Res) => {
-      this.edit = false;
-    });
-  }
-  Edit() {
     if (this.user.province) {
       this.selectedProvince = this.user.province;
       this.cityData = this.nzOptions.find(t => t.name === this.user.province).children;
@@ -55,6 +45,17 @@ export class UsercenterComponent implements OnInit {
     if (this.user.area) {
       this.selectedArea = this.user.area;
     }
+    console.log(this.nzOptions);
+  }
+  save() {
+    this.user.province = this.selectedProvince;
+    this.user.city = this.selectedCity;
+    this.user.area = this.selectedArea;
+    this.userService.updateUserInfo(this.user).then((res: Res) => {
+      this.edit = false;
+    });
+  }
+  Edit() {
     this.edit = true;
   }
   onInput(e: Event): void {

@@ -22,7 +22,7 @@ export class Responseinterceptor implements HttpInterceptor {
           }
         if (event && event.body && event.body.state === '50001') {
           localStorage.removeItem('token');
-          this.message.warning('当前token已失效，请重新登陆！');
+          this.message.warning('登陆已过期，请重新登陆！');
           setTimeout(() => {
             window.open('/', '_self'); }, 2500);
         }

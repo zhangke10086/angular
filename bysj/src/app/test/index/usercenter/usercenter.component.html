@@ -44,8 +44,6 @@
         <nz-form-item>
           <nz-form-label [nzSpan]="3">省份</nz-form-label>
           <nz-form-control *ngIf="edit" [nzSpan]="11">
-<!--            <nz-cascader [nzOptions]="nzOptions" [(ngModel)]="values" name="name"  [nzLabelProperty]="'name'"-->
-<!--                         [nzValueProperty]="'name'" (ngModelChange)="onChanges($event)"></nz-cascader>-->
             <nz-select [(ngModel)]="selectedProvince" (ngModelChange)="provinceChange($event)" name="province">
               <nz-option *ngFor="let p of nzOptions" [nzValue]="p.name" [nzLabel]="p.name"></nz-option>
             </nz-select>
