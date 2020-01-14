@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {LoginService} from './login.service';
 import {User} from './entity/User';
 import {Res} from './entity/Res';
+import {timeout} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -91,6 +92,7 @@ export class LoginComponent implements OnInit {
           this.LForm.value.email).then((res: Res)  => {
           if (res.state === 200) {
             this.message.success('注册成功！');
+            setTimeout(() => { this.logon = false; }, 2000);
           } else if (res.state === 501) {
             this.message.warning('用户名已被注册！');
           } else if (res.state === 500) {
