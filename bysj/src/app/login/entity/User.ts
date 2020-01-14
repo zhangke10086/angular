@@ -9,7 +9,7 @@ export class User {
   type: string;
   name: string;
   email: string;
-  roleList: Role;
+  roleList: Array<Role>;
   province: string;
   city: string;
   birthday: Date;

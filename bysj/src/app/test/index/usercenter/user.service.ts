@@ -29,7 +29,17 @@ export class UserService {
         reject(error);
       })));
   }
-  getProvince() {
-    return this.http.get('/assets/json/city.json');
+  getUserInfo(id: string) {
+    const url = this.url.hostname + 'getUserInfo';
+    return new Promise(((resolve, reject) =>
+      this.http.post(url, id).toPromise().then((res: Res) => {
+        if (res.state === 200) {
+          resolve(res);
+        } else if (res.state === 500) {
+          this.message.error('服务器异常');
+        }
+      }, error => {
+        reject(error);
+      })));
   }
 }

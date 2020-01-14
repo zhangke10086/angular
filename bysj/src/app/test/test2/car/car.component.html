@@ -1,27 +1,35 @@
-<button nz-button nzType="primary" (click)="print()">扫码有惊喜</button>
-<nz-table>
-  <thead>
-    <tr>
-      <th>111</th>
-      <th>222</th>
-      <th>333</th>
-      <th>444</th>
-      <th>555</th>
-      <th>666</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>2</td>
-      <td>3</td>
-      <td>4</td>
-      <td>5</td>
-      <td>6</td>
-    </tr>
-  </tbody>
-</nz-table>
-<nz-modal [(nzVisible)]="codeable" nzTitle="条码显示" (nzOnCancel)="codeable=false"
+<div class="content-background">
+  <div class="content-header" style="height: 48px">
+    <div class="content-div">
+      <button nz-button nzType="primary" (click)="print()">扫码有惊喜</button>
+    </div>
+  </div>
+  <div class="content-table" style="height:calc(100% - 56px)">
+    <nz-table>
+      <thead>
+      <tr>
+        <th>111</th>
+        <th>222</th>
+        <th>333</th>
+        <th>444</th>
+        <th>555</th>
+        <th>666</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+
+  <nz-modal [(nzVisible)]="codeable" nzTitle="条码显示" (nzOnCancel)="codeable=false"
           [style.display]="codeable?'block':'none'">
   <e-ngx-print #qrPrint [printHTML]="qrCode" [showBtn]="false">
   </e-ngx-print>
@@ -42,3 +50,4 @@
     <button nz-button nzType="primary" (click)="browserPrint()">确定</button>
   </div>
 </nz-modal>
+</div>

@@ -24,11 +24,9 @@ export class IndexComponent implements OnInit {
   tabIndex = 0;
   theme = 'dark';
   headerBg = '#141a1e';
-  // tabBg = '#20262a';
   tabBg = '#4e4e4e';
   tabcardBg = '#4e4e4e';
   changeTheme = false;
-  Theme;
   TabBarStyle = {
     color: '#4e4e4e',
     blackground: '#4e4e4e'
@@ -133,11 +131,7 @@ export class IndexComponent implements OnInit {
         return;
       } else {
         this.tabs = [];
-        this.router.navigate(['/index/welcome']).then(res => {
-          InspurRouteReuse.deleteRouteSnapshot(tab.url);
-        }, err => {
-          InspurRouteReuse.deleteRouteSnapshot(tab.url);
-        });
+        this.navigateTo(this.home);
       }
     } else {
       this.tabs.splice(index, 1);
