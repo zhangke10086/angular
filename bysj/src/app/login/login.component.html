@@ -41,31 +41,12 @@
   </div>
   <ng-template #prefixUser><i nz-icon nzType="user" [nzTheme]="'outline'"></i></ng-template>
   <ng-template #prefixLock><i nz-icon nzType="lock" [nzTheme]="'outline'"></i></ng-template>
-  <ng-template #prefixmail><i nz-icon nzType="mail" nzTheme="outline"></i></ng-template>
   <ng-template #prefixcard><i nz-icon nzType="idcard" nzTheme="outline"></i></ng-template>
 </div>
 <nz-modal  [nzOkText]="null" [nzKeyboard]="false"
            [nzCancelText]="null" [nzMaskClosable]="false"
            [(nzVisible)]="logon" [nzTitle]="'用户注册'" (nzOnCancel)="logon=false" >
   <form nz-form [formGroup]="LForm" style="max-width: 400px;" (ngSubmit)="ok()">
-    <div nz-row>
-      <nz-form-item>
-        <nz-form-label  [nzSpan]="7" nzRequired >邮箱</nz-form-label>
-        <nz-form-control [nzSpan]="16">
-          <nz-input-group [nzPrefix]="prefixmail">
-            <input type="text" nz-input formControlName="email" placeholder="邮箱"  (input)="onInput($event)"
-                   [nzAutocomplete]="auto" />
-          </nz-input-group>
-          <nz-autocomplete #auto>
-            <nz-auto-option *ngFor="let option of options" [nzValue]="option">{{ option }}</nz-auto-option>
-          </nz-autocomplete>
-          <nz-form-explain *ngIf="LForm.get('email')?.dirty && LForm.get('email')?.errors"
-          >请输入邮箱
-          </nz-form-explain
-          >
-        </nz-form-control>
-      </nz-form-item>
-    </div>
     <div nz-row>
       <nz-form-item>
         <nz-form-label  [nzSpan]="7" nzRequired >用户名</nz-form-label>
@@ -111,7 +92,7 @@
       <nz-form-item>
         <nz-form-control>
             <input type="checkbox"   (click)="check()" formControlName="check">
-          <label>我已满18岁，已阅读并接受系统协议</label>
+          <label>已阅读并接受系统协议</label>
         </nz-form-control>
       </nz-form-item>
     </div>

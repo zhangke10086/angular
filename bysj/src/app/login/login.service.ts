@@ -44,12 +44,11 @@ export class LoginService {
       });
     });
   }
-  logon(username: string, pwd: string, name: string, email: string) {
+  logon(username: string, pwd: string, name: string) {
     const body = new FormData();
     body.set('username', username);
     body.set('password', pwd);
     body.set('name', name);
-    body.set('email', email);
     return new Promise((resolve, reject) => {
       this.http.post(this.logonUrl, body).toPromise().then(res => {
         resolve(res);
@@ -58,24 +57,4 @@ export class LoginService {
       });
     });
   }
-  logtest(username, pwd) {
-    //
-    // this.http.post(this.loginUrl, body).subscribe(res => {
-    // });
-  }
-  getUsers(username, pwd): Promise<User[]> {
-    const body = new FormData();
-    body.set('username', username);
-    body.set('password', pwd);
-    return new Promise(((resolve, reject) =>
-      this.http.post(this.loginUrl, body)
-        .toPromise().then((res: Res) => {
-          if (res.state === 200) {
-            resolve(res.data);
-          }
-      }, error => {
-        reject(error);
-      })));
-  }
-
 }

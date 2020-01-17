@@ -6,7 +6,6 @@ import {HttpClient} from '@angular/common/http';
 import {LoginService} from './login.service';
 import {User} from './entity/User';
 import {Res} from './entity/Res';
-import {timeout} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -29,8 +28,6 @@ export class LoginComponent implements OnInit {
   validateForm: FormGroup;
   logon = false;
   LForm: FormGroup;
-  checked = false;
-  users = new Array<User>();
   login() {
     console.log(this.validateForm.value.username);
     console.log(this.validateForm.value.password);
@@ -40,7 +37,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('username', res.data.name);
         console.log(res.data);
         localStorage.setItem('userinfo', JSON.stringify(res.data));
-        localStorage.setItem('role', JSON.stringify(res.roleList));
+        localStorage.setItem('role', JSON.stringify(res.data.roleList));
         setTimeout(() => {
           this.router.navigate(['/index']);
         });
@@ -88,8 +85,7 @@ export class LoginComponent implements OnInit {
         && this.LForm.value.name) {
         this.loginService.logon(this.LForm.value.username,
           this.LForm.value.password,
-          this.LForm.value.name,
-          this.LForm.value.email).then((res: Res)  => {
+          this.LForm.value.name).then((res: Res)  => {
           if (res.state === 200) {
             this.message.success('注册成功！');
             setTimeout(() => { this.logon = false; }, 2000);
